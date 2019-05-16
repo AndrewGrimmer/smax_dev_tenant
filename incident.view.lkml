@@ -1,24 +1,25 @@
-view: request {
-  sql_table_name: view_321782990.request ;;
+view: incident {
+  sql_table_name: view_321782990.incident ;;
 
- dimension: ID {
-    description: "Ticket ID"
+  dimension: ID {
+    label: "Ticket ID"
     value_format: "0"
     type: number
     drill_fields: [request_details*]
     sql: ${TABLE}."ID" ;;
   }
 
-  dimension: ASSIGNEDTOPERSON {
-    description: "Assignee ID"
+  dimension: ASSIGNEDPERSON {
+    label: "Assignee ID"
+    value_format: "0"
     type: number
-    sql: ${TABLE}."ASSIGNEDTOPERSON" ;;
+    sql: ${TABLE}."ASSIGNEDPERSON" ;;
   }
 
- dimension: ASSIGNEDTOGROUP {
+  dimension: ASSIGNEDGROUP {
     description: "Assignement Group"
     type: string
-    sql: ${TABLE}."ASSIGNEDTOGROUP" ;;
+    sql: ${TABLE}."ASSIGNEDGROUP" ;;
   }
 
   dimension: URGENCY {
@@ -27,10 +28,10 @@ view: request {
     sql: ${TABLE}."URGENCY" ;;
   }
 
-  dimension:CREATETIME {
-    label: "Open Time"
-    type: date
-    sql: ${TABLE}."CREATETIME" ;;
+  dimension:LASTUPDATETIME {
+    label: "Last Update Time"
+    type: date_hour
+    sql: ${TABLE}."LASTUPDATETIME" ;;
   }
 
   dimension: PRIORITY{
@@ -47,7 +48,7 @@ view: request {
 
   dimension: STATUS {
     type: string
-    sql: SUBSTRING(${TABLE}."STATUS", 14) ;;
+    sql: ${TABLE}."STATUS" ;;
   }
 
 ############### measure defintions ###############
@@ -66,6 +67,6 @@ view: request {
   }
 
   set: request_details {
-    fields: [ID, CREATETIME, STATUS, ASSIGNEDTOPERSON, ASSIGNEDTOGROUP]
+    fields: [ID, LASTUPDATETIME, STATUS, ASSIGNEDPERSON, ASSIGNEDGROUP]
   }
 }
