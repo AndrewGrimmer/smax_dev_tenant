@@ -4,6 +4,7 @@ view: request {
  dimension: ID {
     description: "Ticket ID"
     value_format: "0"
+    primary_key: yes
     type: number
     drill_fields: [request_details*]
     sql: ${TABLE}."ID" ;;
