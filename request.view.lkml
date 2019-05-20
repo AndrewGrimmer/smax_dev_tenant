@@ -50,6 +50,15 @@ view: request {
     sql: SUBSTRING(${TABLE}."STATUS", 14) ;;
   }
 
+  dimension: LASTUPDATETIME{
+    type:  date_minute
+    sql: ${TABLE}."LASTUPDATETIME" ;;
+  }
+
+  dimension: isCurrentUpdate{
+    type: yesno
+    sql:  ${TABLE}."LASTUPDATETIME" <= now() AND ${TABLE}."LASTUPDATETIME" >= CURRENT_DATE + INTERVAL '5 Days' ;;
+  }
 ############### measure defintions ###############
   measure: URGENCYCOUNT {
     type: count
