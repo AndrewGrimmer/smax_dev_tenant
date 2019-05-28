@@ -15,6 +15,14 @@ view: request {
     type: number
     sql: ${TABLE}."ASSIGNEDTOPERSON" ;;
   }
+  dimension: ASSIGNEDPERSON {
+    type: string
+    sql: (
+          SELECT person."NAME"
+            FROM view_321782990.person, view_321782990.request
+            WHERE person."ID" = request."ASSIGNEDTOPERSON"
+          ) ;;
+  }
 
  dimension: ASSIGNEDTOGROUP {
     description: "Assignement Group"
@@ -28,10 +36,16 @@ view: request {
     sql: ${TABLE}."URGENCY" ;;
   }
 
-  dimension:CREATETIME {
-    label: "Open Time"
+  dimension: CREATETIME {
+    #label: "Time Opened"
     type: date
     sql: ${TABLE}."CREATETIME" ;;
+  }
+
+  dimension: CLOSETIME {
+    #label: "Time Closed"
+    type: date
+    sql: ${TABLE}."CLOSETIME" ;;
   }
 
   dimension: PRIORITY{
